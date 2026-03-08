@@ -28,9 +28,7 @@ logging.basicConfig(
 # ================= DATABASE =================
 conn = sqlite3.connect(DB_NAME, check_same_thread=False)
 cursor = conn.cursor()
-cursor.execute(
-    "CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)"
-)
+cursor.execute("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)")
 conn.commit()
 
 
@@ -99,7 +97,7 @@ https://t.me/rajaindiaprediction/54""",
                     chat_id=user.id,
                     voice=voice,
                     caption="""🎙 सदस्य 9X गुना लाभ का प्रमाण 👇🏻
-https://t.me/rajaindiaprediction/56
+https://t.me/rajaindiaprediction/54
 
 ♻सहायता के लिए @KING_4MONEY
 लगातार नंबर पे नंबर जीतना 🤑♻👑""",
@@ -208,9 +206,7 @@ async def users_count(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Optional: confirm activation only once
 
 
-async def capture_user_message(
-    update: Update, context: ContextTypes.DEFAULT_TYPE
-):
+async def capture_user_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     message = update.message
 
@@ -228,9 +224,7 @@ async def capture_user_message(
     admin_id = ADMIN_ID  # make sure this is defined at top
 
 
-async def capture_user_message(
-    update: Update, context: ContextTypes.DEFAULT_TYPE
-):
+async def capture_user_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     message = update.message
 
@@ -243,6 +237,7 @@ async def capture_user_message(
 
     user_id = user.id
 
+    
     # 🚫 STOP if admin
     if user_id == ADMIN_ID:
         return
@@ -266,28 +261,28 @@ async def capture_user_message(
         pass
 
     # Send your injector / welcome package
+    
 
 
 # ================= MAIN =================
 def main():
     app = Application.builder().token(BOT_TOKEN).build()
 
+    # Commands first
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("broadcast", broadcast))
     app.add_handler(CommandHandler("users", users_count))
+
+    # Join request handler
     app.add_handler(ChatJoinRequestHandler(approve_and_send))
 
+    # Message handler LAST (very important)
     app.add_handler(
         MessageHandler(filters.ALL & ~filters.COMMAND, capture_user_message)
     )
 
-    # Run webhook
-    app.run_webhook(
-        listen="0.0.0.0",
-        port=int(PORT),
-        url_path=BOT_TOKEN,
-        webhook_url=f"{RENDER_URL}/{BOT_TOKEN}",
-    )
+    # IMPORTANT: remove allowed_updates restriction
+    app.run_polling()
 
 
 def user_exists(user_id: int):
@@ -297,3 +292,5 @@ def user_exists(user_id: int):
 
 if __name__ == "__main__":
     main()
+
+
