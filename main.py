@@ -28,7 +28,9 @@ logging.basicConfig(
 # ================= DATABASE =================
 conn = sqlite3.connect(DB_NAME, check_same_thread=False)
 cursor = conn.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)")
+cursor.execute(
+    "CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)"
+)
 conn.commit()
 
 
@@ -206,7 +208,9 @@ async def users_count(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Optional: confirm activation only once
 
 
-async def capture_user_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def capture_user_message(
+    update: Update, context: ContextTypes.DEFAULT_TYPE
+):
     user = update.effective_user
     message = update.message
 
@@ -224,7 +228,9 @@ async def capture_user_message(update: Update, context: ContextTypes.DEFAULT_TYP
     admin_id = ADMIN_ID  # make sure this is defined at top
 
 
-async def capture_user_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def capture_user_message(
+    update: Update, context: ContextTypes.DEFAULT_TYPE
+):
     user = update.effective_user
     message = update.message
 
@@ -237,7 +243,6 @@ async def capture_user_message(update: Update, context: ContextTypes.DEFAULT_TYP
 
     user_id = user.id
 
-    
     # 🚫 STOP if admin
     if user_id == ADMIN_ID:
         return
@@ -261,7 +266,6 @@ async def capture_user_message(update: Update, context: ContextTypes.DEFAULT_TYP
         pass
 
     # Send your injector / welcome package
-    
 
 
 # ================= MAIN =================
@@ -285,13 +289,11 @@ def main():
         webhook_url=f"{RENDER_URL}/{BOT_TOKEN}",
     )
 
+
 def user_exists(user_id: int):
     cursor.execute("SELECT 1 FROM users WHERE user_id=?", (user_id,))
     return cursor.fetchone() is not None
-    
+
+
 if __name__ == "__main__":
     main()
-
-
-
-
