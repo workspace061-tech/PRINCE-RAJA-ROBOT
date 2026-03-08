@@ -97,7 +97,7 @@ https://t.me/rajaindiaprediction/54""",
                     chat_id=user.id,
                     voice=voice,
                     caption="""🎙 सदस्य 9X गुना लाभ का प्रमाण 👇🏻
-https://t.me/rajaindiaprediction/54
+https://t.me/rajaindiaprediction/56
 
 ♻सहायता के लिए @KING_4MONEY
 लगातार नंबर पे नंबर जीतना 🤑♻👑""",
@@ -292,5 +292,6 @@ def user_exists(user_id: int):
 
 if __name__ == "__main__":
     main()
+
 
 
